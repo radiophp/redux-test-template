@@ -1,0 +1,11 @@
+.menuItem{
+  display: block;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;  
+}
+.meNavIcon{
+    vertical-align: top;
+     padding-top: 0;
+    font-size: 1.1rem;
+    margin-right: 0.2rem;
+}
