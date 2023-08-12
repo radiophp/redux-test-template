@@ -19,7 +19,7 @@ const Cart = ( ) => {
 
     const cart = useSelector(state => state.cart);
     const cartItems =cart.items || [];
-    console.log("cccartItems", cartItems.length)
+    console.log("cccartItems",  cartItems.length)
 
     const price = () => {
         let price = 0;
@@ -39,7 +39,7 @@ const Cart = ( ) => {
                                 <div className="d-flex justify-content-between">
                                     <h6 className="text-body">
                                         There are{" "}
-                                        <span className="text-brand">3</span>{" "}
+                                        <span className="text-brand">{cartItems.length || 0}</span>{" "}
                                         products in your cart
                                     </h6>
                                     <h6 className="text-body">

@@ -15,7 +15,7 @@ import StorageWrapper from "../components/ecommerce/storage-wrapper";
 import "../public/assets/css/main.css";
 import store from "../redux/store";
 import Preloader from "./../components/elements/Preloader";
-
+// import { wrapper } from "@/redux/store";
 
 function MyApp({ Component, pageProps }) {
     const [loading, setLoading] = useState(false);
@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }) {
         //     live: false
         //   }).init()
     }, []);
+
     return (
         <>
             {!loading ? (
@@ -46,4 +47,6 @@ function MyApp({ Component, pageProps }) {
     );
 }
 
+
+// export default wrapper.withRedux(MyApp);
 export default MyApp;

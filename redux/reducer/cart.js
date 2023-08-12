@@ -18,12 +18,17 @@ const cartSlice = createSlice({
         initCart: (state, action) => {
 
             if (action.payload.items){
-                state.items= action.payload.items || [];
+                console.log("initCart CART" , typeof action.payload.items, action.payload.items)
+                // return {
+                //         modal: state.modal,
+                //         items: action.payload.items
+                // }
+                state.items = action.payload.items;
 
             }
             else{
                 return  {
-                    modal: false,
+                    modal: state.modal,
                     items: []
                 }
             }
@@ -50,7 +55,7 @@ const cartSlice = createSlice({
         deleteFromCart: (state, action) => {
             const newCartItems = deleteProduct(state.items, action.payload);
             state.items = newCartItems;
-            storage.set("dokani_cart", newCartItems);
+            storage.set("dokani_cart", state);
         },
         increaseQuantity: (state, action) => {
             const index = findProductIndexById(state.items, action.payload);
@@ -71,15 +76,15 @@ const cartSlice = createSlice({
             return [];
         }
     },
-    extraReducers: builder => {
-        builder.addCase(initLocalStorage, (state, action) => {
-            console.log("initLocalStorage CART" ,action.payload.cart)
-
-            return action.payload.cart;
-
-        }
-         );
-    }
+    // extraReducers: builder => {
+    //     builder.addCase(initLocalStorage, (state, action) => {
+    //         console.log("initLocalStorage CART" ,action.payload.cart)
+    //
+    //         return action.payload.cart;
+    //
+    //     }
+    //      );
+    // }
 });
 
 export const {
