@@ -19,33 +19,14 @@ import { setSettingProps } from '@/redux/reducer/setting';
 import { useDispatch } from 'react-redux';
 
 export async function getServerSideProps() {
-    console.log("***************************************************************************************************************************")
-    console.log("***************************************************************************************************************************")
-   // const store = initializeStore();
-
-    try {
-        // Dispatch the thunk or query action and await its result
-       // useGetConfigQuery();
 
 
-        await store.dispatch(apiSlice.endpoints.getConfig.initiate(apiSliceUrl.public_info)).unwrap();
-        // Get data from the store
-
-    } catch (error) {
-        // Handle the error accordingly
-        console.log("my error", error)
-    }
-    const state = store.getState();
-
-
-    const configData = state[apiSlice.reducerPath].queries[`getConfig("${apiSliceUrl.public_info}")`].data;
     const request = await fetch(`${server}/static/product.json`);
     const allProducts = await request.json();
     // Pass the Data to your component as a prop
     return {
         props: {
-            allProducts,
-            configData
+            allProducts
         },
     };
 }
@@ -71,20 +52,13 @@ const NameComponent = () => {
 }
 
 export default function Home(props) {
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(setSettingProps(props.configData));
-    }, [props, dispatch]);
 
-    // const {data, error, isLoading} = apiSlice.endpoints.getConfig.useQuery();
-   // const {data, error, isLoading} =useGetConfigQuery();
-   // console.log("dara Home: ", data)
 
 
     return <>
         <NameComponent/>
-        {JSON.stringify(props.configData)}
+
         {/*<IntroPopup/>*/}
 
         <Layout noBreadcrumb="d-none">
