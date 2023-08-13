@@ -24,32 +24,32 @@ function MyApp({Component, pageProps, setting}) {
 
 
     const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-
-        // new WOW.WOW({
-        //     live: false
-        //   }).init()
-    }, []);
+    // useEffect(() => {
+    //     setLoading(true);
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 2000);
+    //
+    //     // new WOW.WOW({
+    //     //     live: false
+    //     //   }).init()
+    // }, []);
 
     return (
         <>
-            {!loading ? (
+            {/*{!loading ? (*/}
                 <Provider store={store}>
                     <StorageWrapper>
                         <AppWithData setting={setting}>
-                            {JSON.stringify(setting)}
+                     {setting.owner_information.company_name }
                             <Component {...pageProps} />
                             <ToastContainer/>
                         </AppWithData>
                     </StorageWrapper>
                 </Provider>
-            ) : (
-                <Preloader/>
-            )}
+            {/*) : (*/}
+            {/*    <Preloader/>*/}
+            {/*)}*/}
         </>
     );
 }

@@ -10,26 +10,13 @@ import PriceRangeSlider from "@/components/ecommerce/Filter/PriceRangeSlider";
 import VendorFilter from "@/components/ecommerce/Filter/VendorFilter";
 import SizeFilter from "@/components/ecommerce/Filter/SizeFilter";
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {server} from "@/config";
-import {initializeStore } from '@/redux/store';
+import {useSelector} from "react-redux";
 import store from '@/redux/store';
 import {apiSlice, apiSliceUrl,getConfig, useGetConfigQuery} from '@/redux/reducer/api';
-import {wrapper} from "@/redux/store";
-import { setSettingProps } from '@/redux/reducer/setting';
 import { useDispatch } from 'react-redux';
+import {setProductsProps ,selectProducts,selectProductsState} from "@/redux/reducer/products";
 
-export async function getServerSideProps() {
 
-
-    const request = await fetch(`${server}/static/product.json`);
-    const allProducts = await request.json();
-    // Pass the Data to your component as a prop
-    return {
-        props: {
-            allProducts
-        },
-    };
-}
 
 const NameComponent = () => {
     const [name, setName] = useState('mamad');
@@ -51,8 +38,10 @@ const NameComponent = () => {
 
 }
 
-export default function Home(props) {
-
+const Home = (props) => {
+    const dispatch = useDispatch();
+    dispatch(setProductsProps(props.allProducts));
+    const products = useSelector(selectProducts);
 
 
 
@@ -221,3 +210,25 @@ export default function Home(props) {
 
     </>;
 }
+
+export const getServerSideProps = async () =>{
+    try {
+        await store.dispatch(apiSlice.endpoints.getProducts.initiate(apiSliceUrl.products)).unwrap();
+    } catch (error) {
+        // Handle the error accordingly
+        console.log("my error", error)
+    }
+    const state = store.getState();
+    const allProducts = state[apiSlice.reducerPath].queries[`getProducts("${apiSliceUrl.products}")`].data;
+
+
+    // const request = await fetch(`${server}/static/product.json`);
+    // const allProducts = await request.json();
+    // Pass the Data to your component as a prop
+    return {
+        props: {
+            allProducts
+        },
+    };
+}
+export default Home;

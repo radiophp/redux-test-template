@@ -13,7 +13,7 @@ function CategoryTab({ allProducts }) {
     const [cat1, setCat1] = useState([]);
     const [cat2, setCat2] = useState([]);
     const [cat3, setCat3] = useState([]);
-
+    //console.log("allProducts", allProducts)
     useEffect(() => {
         const catAllItem = allProducts.filter((item) => item.category);
         setCatAll(catAllItem);

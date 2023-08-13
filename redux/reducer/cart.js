@@ -46,9 +46,10 @@ const cartSlice = createSlice({
                 state.items[index].quantity += 1;
             } else {
                 if (!action.payload.product.quantity) {
-                    action.payload.product.quantity = 1;
+                    const newProduct = { ...action.payload.product, quantity: 1 };
+                    state.items.push(newProduct);
                 }
-                state.items.push(action.payload.product);
+                //state.items.push(action.payload.product);
             }
             storage.set("dokani_cart", state);
         },
